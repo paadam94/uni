@@ -1,0 +1,48 @@
+obs-stdio repository:
+https://github.com/obsproject/obs-studio
+
+v4l2loopback repo:
+https://github.com/umlaeute/v4l2loopback
+
+git
+dependencies(kernel-module)
+
+    teljes:
+    sudo pacman -S base-devel linux-headers 
+        mas distrokon esetleg build-essentials
+
+    minimal:
+    sudo pacman -S gcc (base-devel)
+    sudo pacman -S make
+    sudo pacman -S linux-headers
+
+obs dependecies:
+
+    teljes:
+    sudo pacman -S qt5 qt5-devel
+            vagy gt5-dev, osszes gt5 ....
+    tajekozodj az installalasi oldalon vagy cmake kozben kirt reszt tanulmanyozd
+
+    minimal: 
+    sudo pacman -S qt5 qt5-svg qt5-x11extras
+	sudo pacman -S cmake
+	
+v4l2loopback:
+    git clone https://github.com/umlaeute/v4l2loopback.git
+    cd v4l2loopback
+    sudo make
+    sudo make install
+    sudo depmod -a
+    sudo modprobe v4l2loopback
+    lsmod | grep v4l2loopback
+
+obs
+    cd ~/programs
+    git clone --recursive https://github.com/obsproject/obs-studio.git
+    cd obs-studio
+	mkdir build && cd build
+    cmake -DUNIX_STRUCTURE=0 -DCMAKE_INSTALL_PREFIX="${HOME}/obs-studio-portable" ..
+    make -j4
+    sudo make install
+
+teszteljuk
